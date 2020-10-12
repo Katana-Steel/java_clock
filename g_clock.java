@@ -3,7 +3,6 @@
 // Decompiler options: packimports(3) braces fieldsfirst splitstr(80)
 // Source File Name:   the_clock.java
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public interface g_clock
 {

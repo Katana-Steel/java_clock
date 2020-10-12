@@ -4,8 +4,6 @@
 // Source File Name:   the_clock.java
 
 import java.awt.*;
-import java.awt.font.TextLayout;
-import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
@@ -21,12 +19,12 @@ public class the_clock implements g_clock
     double st;
     double ti;
     Dimension dim;
-    String t_ime;
     RenderingHints render;
     private static String bgc = "#BBBBBB";
     private static String fgc = "#000000";
     private static float lw = 1.2F;
     SimpleTimeZone tz;
+    clock_2d cl2d;
 
     public the_clock()
     {
@@ -35,67 +33,32 @@ public class the_clock implements g_clock
     private String t()
     {
         GregorianCalendar gregoriancalendar = new GregorianCalendar(tz);
-        int i = gregoriancalendar.get(11);
-        int j = gregoriancalendar.get(12);
-        int k = gregoriancalendar.get(13);
-        int l = gregoriancalendar.get(14);
+        int i = gregoriancalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        int j = gregoriancalendar.get(GregorianCalendar.MINUTE);
+        int k = gregoriancalendar.get(GregorianCalendar.SECOND);
+        int l = gregoriancalendar.get(GregorianCalendar.MILLISECOND);
         cl = (double)(i * 60 * 60) + (double)(j * 60) + (double)k;
-        cl += (double)l / 1000D;
-        cl = (cl / 86400D) * 200000D;
-        c = new Long((long)cl % 100L);
+        cl += (double)l / 1000.0;
+        cl = (cl / 86400.0) * 200000.0;  // convert seconds to 2x 10 "hours" a day
+        c = (long)cl % 100;   //  get the clicks
         st = cl / 100D;
-        s = new Long((long)st % 100L);
+        s = (long)st % 100L;  //  get the strokes
         ti = st / 100D;
-        t = new Long((long)ti % 20L);
+        t = (long)ti % 20L; // and the ticks
         return (new StringBuilder()).append(t.toString()).append("t:").append(s.toString()).append("s:").append(c.toString()).append("c").toString();
     }
 
     private void p_rim()
     {
-        double d = (double)dim.height - 40D;
-        double d1 = (double)dim.width - 15D;
-        double d2 = d1 / 2D;
-        double d3 = d2 + 5D;
-        g.draw(new java.awt.geom.Ellipse2D.Double(5D, 5D, d1, d1));
-        double d4 = 0.0D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
-        d4 += 36D;
-        g.draw(new java.awt.geom.Line2D.Double(Math.sin(Math.toRadians(d4)) * (d2 * 0.80000000000000004D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.80000000000000004D), Math.sin(Math.toRadians(d4)) * (d2 * 0.90000000000000002D) + d3, d3 - Math.cos(Math.toRadians(d4)) * (d2 * 0.90000000000000002D)));
+        cl2d.p_rim(36.0);
     }
 
     private void draw_clock()
     {
-        double d = (double)dim.height - 40;
-        double d1 = (double)dim.width - 15;
-        double d2 = cl * 3.6;
-        double d3 = s.doubleValue() * 3.6;
-        double d4 = ti * 36;
-        double d5 = d1 / 2;
-        double d6 = d5 + 5;
-        g.draw(new java.awt.geom.Line2D.Double(d6, d6, Math.sin(Math.toRadians(d3)) * (d5 * 0.90000000000000002D) + d6, d6 - Math.cos(Math.toRadians(d3)) * (d5 * 0.90000000000000002D)));
-        g.draw(new java.awt.geom.Line2D.Double(d6, d6, Math.sin(Math.toRadians(d2)) * (d5 * 0.94999999999999996D) + d6, d6 - Math.cos(Math.toRadians(d2)) * (d5 * 0.94999999999999996D)));
-        g.draw(new java.awt.geom.Line2D.Double(d6, d6, Math.sin(Math.toRadians(d4)) * (d5 * 0.59999999999999998D) + d6, d6 - Math.cos(Math.toRadians(d4)) * (d5 * 0.59999999999999998D)));
-        Font font = Font.decode("Courier New-plain-14");
-        java.awt.font.FontRenderContext fontrendercontext = g.getFontRenderContext();
-        TextLayout textlayout = new TextLayout(t_ime, font, fontrendercontext);
-        float f = ((float)(d1 / 2) + 5) - (float)(textlayout.getBounds().getWidth() / 2);
-        textlayout.draw(g, f, (float)(d + 30));
+        cl2d.fastRot = cl * 3.6;
+        cl2d.longRot = s.doubleValue() * 3.6;
+        cl2d.shortRot = ti * 36.0;
+        cl2d.draw_clock();
     }
 
     public void setBG(String s1)
@@ -146,6 +109,7 @@ public class the_clock implements g_clock
         render.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         render.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
         g.setRenderingHints(render);
+        cl2d = new clock_2d(g, dim);
     }
 
     public Image getBuffer()
@@ -157,7 +121,7 @@ public class the_clock implements g_clock
     {
         g.setBackground(Color.decode(bgc));
         g.setColor(Color.decode(fgc));
-        t_ime = t();
+        cl2d.time = t();
         g.clearRect(0, 0, dim.width+5, dim.height);
         p_rim();
         draw_clock();

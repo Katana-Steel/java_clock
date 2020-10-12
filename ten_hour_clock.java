@@ -3,15 +3,13 @@
 // Decompiler options: packimports(3) braces fieldsfirst splitstr(80)
 // Source File Name:   ten_hour_clock.java
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.PrintStream;
 
-public class ten_hour_clock extends Applet
+public class ten_hour_clock extends Panel
     implements Runnable, WindowListener, ComponentListener
 {
-
+    private static final long serialVersionUID = 15;
     g_clock clockT;
     boolean ten;
     Thread tt;
@@ -24,7 +22,7 @@ public class ten_hour_clock extends Applet
     public ten_hour_clock()
     {
         ten = false;
-        di = new Dimension(150,170);
+        di = new Dimension(200,230);
     }
 
     public Dimension getPreferredSize()
@@ -43,41 +41,6 @@ public class ten_hour_clock extends Applet
         else clockT = new the_clock_onetwo();
         clockT.setZone(h,z);
         clockT.init(di);
-        try
-        {
-            String s = getParameter("type");
-            if(s != null)
-            {
-                if(s == "10")
-                {
-                   ten = true;
-                   clockT = null;
-                   clockT = new the_clock();
-                   clockT.setZone(h,z);
-                   clockT.init(di);
-                }
-            }
-            s = getParameter("bgcolor");
-            if(s != null)
-            {
-                clockT.setBG(s);
-            }
-            s = getParameter("fgcolor");
-            if(s != null)
-            {
-                clockT.setFG(s);
-            }
-            s = getParameter("lwidth");
-            Float float1 = new Float(s);
-            if(float1 != null)
-            {
-                clockT.setLineWidth(float1.floatValue());
-            }
-        }
-        catch(NullPointerException nullpointerexception)
-        {
-           // System.out.println("getParameter is not supported.");
-        }
         g = getGraphics();
         running = Boolean.valueOf(true);
         suspended = Boolean.valueOf(false);
@@ -106,7 +69,6 @@ public class ten_hour_clock extends Applet
                 }
                 catch(NullPointerException nullpointerexception) { }
                 catch(IllegalArgumentException illegalargumentexception) { }
-                Thread thread = tt;
                 Thread.sleep(0L, 54);
             }
             catch(InterruptedException interruptedexception)
@@ -162,7 +124,7 @@ public class ten_hour_clock extends Applet
             if(as.length > i + 1)
             {
                 String s2 = as[++i];
-                Float float1 = new Float(s2);
+                Float float1 = Float.parseFloat(s2);
                 if(float1 != null)
                 {
                     clockT.setLineWidth(float1.floatValue());
@@ -185,7 +147,7 @@ public class ten_hour_clock extends Applet
 
     public void windowClosed(WindowEvent windowevent)
     {
-        Window window = windowevent.getWindow();
+        // Window window = windowevent.getWindow();
     }
 
     public void windowDeiconified(WindowEvent windowevent)
@@ -245,7 +207,7 @@ public class ten_hour_clock extends Applet
                 Integer[] r = new Integer[n];
                 for(int j=0;j<n;j++)
                 {
-                    r[j] = new Integer(zones[j]);
+                    r[j] = Integer.parseInt(zones[j]);
                     r[j] -= j;
                 }
                 return r;
@@ -292,7 +254,7 @@ public class ten_hour_clock extends Applet
     {
         if(usage(args)) return;
         win = new Frame("Katana's Clock");
-        win.setBounds(10, 10, 780, 200);
+        win.setBounds(10, 10, 780, 270);
         ten_hour_clock[] clocks;
         FlowLayout lay = new FlowLayout(FlowLayout.CENTER);
         lay.setVgap(2);
